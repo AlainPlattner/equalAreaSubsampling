@@ -1,4 +1,4 @@
-function testit(nsph,npts)
+function testeqAreaSubs(nsph,npts)
   % nsph is how many cells
   % npts is how many points per cell
 
