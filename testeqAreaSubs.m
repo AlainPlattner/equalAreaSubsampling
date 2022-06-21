@@ -1,22 +1,25 @@
-function testeqAreaSubs(nsph,npts)
+function testeqAreaSubs(nsph,npts,dattype)
   % nsph is how many cells
   % npts is how many points per cell
+  % dattype is whether loading a regional data set or using a global one
+  % For dattype choose either 1 (global) or 2 (local loaded)
 
-  regular = false
-
-  if regular
-    reslon = 1;
-    reslat = 1;
-    lonedge = 0:reslon:360;
-    colaedge = reslat:reslat:180-reslat;
-    [lon,cola] = meshgrid(lonedge,colaedge);
-    lon = lon(:);
-    cola = cola(:);
-    lat = 90-cola(:);
-  else
-    dat = load('synth_Mars_noise10pc_gmtloc.txt');
-    lon = dat(:,1);
-    lat = dat(:,2);
+  defval('dattype',1)
+  
+  switch dattype
+    case 1
+      reslon = 1;
+      reslat = 1;
+      lonedge = 0:reslon:360;
+      colaedge = reslat:reslat:180-reslat;
+      [lon,cola] = meshgrid(lonedge,colaedge);
+      lon = lon(:);
+      cola = cola(:);
+      lat = 90-cola(:);
+    case 2
+      dat = load('synth_Mars_noise10pc_gmtloc.txt');
+      lon = dat(:,1);
+      lat = dat(:,2);
   end
     
   [indx,pcount] = eqAreaSubs(lon,lat,nsph,npts);
